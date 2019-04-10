@@ -5,10 +5,10 @@ FSJS project 2 - List Filter and Pagination
 
 
 // the 'list_items' variable holds a html collection of all list items
-// inside the first and only ul of index.html
+// inside the ul with class 'student-list'.
 // each li is a student.
 
-const list_items = document.getElementsByTagName('ul')[0].children;
+const list_items = document.querySelector('.student-list').children;
 
 
 // the 'items_per_page' holds the number of lis we want to show per page
@@ -27,7 +27,7 @@ const items_per_page = 10;
    we hide all of them first, then we change again the display of only the
    targeted ones.
 
-   we get the start and end index of our 10 student long list
+   we get the start and end index of our 10 student-long list
    by applying some simple math.
 ***/
 
@@ -79,21 +79,22 @@ appendPageLinks(list_items);
 // we target elements in our index.html and give a 'className' of
 // '.active' to the first link in the navigation at the buttom of the page.
 
-const div_pagination = document.querySelector('.pagination');
-const ul_pagination = div_pagination.getElementsByTagName('ul')[0];
-const first_li = ul_pagination.getElementsByTagName('li')[0];
-const first_active_a = first_li.firstElementChild;
-first_active_a.className = 'active';
-
-const lis_pagination = ul_pagination.children;
+    const div_pagination = document.querySelector('.pagination');
+    const ul_pagination = div_pagination.getElementsByTagName('ul')[0];
+    const first_li = ul_pagination.getElementsByTagName('li')[0];
+    const first_active_a = first_li.firstElementChild;
+    first_active_a.className = 'active';
 
 
-// looping through the link elements we just created with 'appendPageLinks'
-// to add a 'click' event listener to all of them.
-// we loop through them one more time and remove the className of each one of them
+
+// we loop through the a elements we just created with 'appendPageLinks'
+// and add a 'click' event listener to all of them.
+// we loop through them one more time and remove the className of each one of them.
 // then we assign a className of 'active' only to the event targeted link only.
 // Finally we call the 'showPage' function passing our html collection and
 // the last targeted link textContent as arguments.
+
+const lis_pagination = ul_pagination.children;
 
 for(let i = 0; i < lis_pagination.length; i += 1) {
   let li = lis_pagination[i];
@@ -114,13 +115,14 @@ for(let i = 0; i < lis_pagination.length; i += 1) {
 
 // We call the 'showPages' function passing the html collection and
 // the number 1 as arguments to display the first page of the first 10 students as
-// a starting point for out app.
+// a starting point for our app.
 
 showPage(list_items, 1);
 
 
 
-// search bar
+// in the following lines we create and manipulate some elements
+// in order to append a search bar in the top right corner of our app.
 
 const page_header = document.querySelector('.page-header');
 const search_div = document.createElement('div');
@@ -136,6 +138,7 @@ page_header.appendChild(search_div);
 
 
 
+// THAT'S WHERE THE PROBLEMS BEGIN :) 
 // -----------------------------
 
 const studentList = document.querySelector('.student-list');
@@ -148,25 +151,36 @@ search_input.addEventListener('keyup', () => {
   let input = search_input;
   let inputValue = input.value;
   let inputLength = inputValue.length;
+  let namesArray = []; // --------------------------------------
 
-  if(inputValue === '') {
-    showPage(list_items, 1);
-
-  }else{
     for(let i = 0; i < lis_students.length; i += 1) {
       let li =  lis_students[i];
       let h3 = li.getElementsByTagName('h3')[0];
       let name = h3.textContent;
-
       let nameSubStr = name.substring(0, inputLength);
 
       if(nameSubStr === inputValue) {
         li.style.display = '';
+        namesArray.push(li);  // ------------------------------
       }else{
         li.style.display = 'none';
       }
     }
-  }
+
+// not sure about the following
+
+    if(inputValue === '') {
+      showPage(list_items, 1);
+      // document.querySelector('.pagination').remove();
+      // appendPageLinks(list_items);
+    }
+    // else{
+    //   document.querySelector('.pagination').remove();
+    //   appendPageLinks(namesArray);
+    // }
+
+
+
 })
 
 
