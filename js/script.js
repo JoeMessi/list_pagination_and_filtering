@@ -79,13 +79,13 @@ appendPageLinks(list_items);
 // we target elements in our index.html and give a 'className' of
 // '.active' to the first link in the navigation at the buttom of the page.
 
-const divPagination = document.querySelector('.pagination');
-const ul = divPagination.getElementsByTagName('ul')[0];
-const firstLi = ul.getElementsByTagName('li')[0];
-const firstActiveA = firstLi.firstElementChild;
-firstActiveA.className = 'active';
+const div_pagination = document.querySelector('.pagination');
+const ul_pagination = div_pagination.getElementsByTagName('ul')[0];
+const first_li = ul_pagination.getElementsByTagName('li')[0];
+const first_active_a = first_li.firstElementChild;
+first_active_a.className = 'active';
 
-const lis = ul.children;
+const lis_pagination = ul_pagination.children;
 
 
 // looping through the link elements we just created with 'appendPageLinks'
@@ -95,13 +95,13 @@ const lis = ul.children;
 // Finally we call the 'showPage' function passing our html collection and
 // the last targeted link textContent as arguments.
 
-for(let i = 0; i < lis.length; i += 1) {
-  let li = lis[i];
+for(let i = 0; i < lis_pagination.length; i += 1) {
+  let li = lis_pagination[i];
   let a = li.firstElementChild;
   a.addEventListener('click', (e) => {
 
-    for(let i = 0; i < lis.length; i += 1) {
-      let li = lis[i];
+    for(let i = 0; i < lis_pagination.length; i += 1) {
+      let li = lis_pagination[i];
       let a = li.firstElementChild;
       a.className = '';
       e.target.className = 'active';
@@ -117,3 +117,79 @@ for(let i = 0; i < lis.length; i += 1) {
 // a starting point for out app.
 
 showPage(list_items, 1);
+
+
+
+// search bar
+
+const page_header = document.querySelector('.page-header');
+const search_div = document.createElement('div');
+search_div.className = 'student-search';
+const search_input = document.createElement('input');
+search_input.placeholder = 'Search for students...';
+const search_button = document.createElement('button');
+search_button.textContent = 'Search';
+
+search_div.appendChild(search_input);
+search_div.appendChild(search_button);
+page_header.appendChild(search_div);
+
+
+
+// -----------------------------
+
+const studentList = document.querySelector('.student-list');
+const lis_students = studentList.children;
+
+
+// add keyup event listener to search input
+
+search_input.addEventListener('keyup', () => {
+  let input = search_input;
+  let inputValue = input.value;
+  let inputLength = inputValue.length;
+
+  if(inputValue === '') {
+    showPage(list_items, 1);
+
+  }else{
+    for(let i = 0; i < lis_students.length; i += 1) {
+      let li =  lis_students[i];
+      let h3 = li.getElementsByTagName('h3')[0];
+      let name = h3.textContent;
+
+      let nameSubStr = name.substring(0, inputLength);
+
+      if(nameSubStr === inputValue) {
+        li.style.display = '';
+      }else{
+        li.style.display = 'none';
+      }
+    }
+  }
+})
+
+
+// add 'click' event listener to search button
+
+search_button.addEventListener('click', () => {
+  let input = search_input;
+
+  if(input.value === '') {
+    alert('Type a valid name');
+  }
+  else{
+    for(let i = 0; i < lis_students.length; i += 1) {
+      let li =  lis_students[i];
+      let h3 = li.getElementsByTagName('h3')[0];
+      let name = h3.textContent;
+
+      if(name === input.value) {
+        li.style.display = '';
+      }else{
+        li.style.display = 'none';
+      }
+    }
+  input.value = '';
+  }
+})
