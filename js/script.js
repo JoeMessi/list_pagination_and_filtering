@@ -7,12 +7,9 @@ FSJS project 2 - List Filter and Pagination
 // the 'list_items' variable holds a html collection of all list items
 // inside the ul with class 'student-list'.
 // each li is a student.
-
 const list_items = document.querySelector('.student-list').children;
 
-
-// the 'items_per_page' holds the number of lis we want to show per page
-
+// 'items_per_page' holds the number of lis we want to show per page
 const items_per_page = 10;
 
 
@@ -138,7 +135,7 @@ page_header.appendChild(search_div);
 
 
 
-// THAT'S WHERE THE PROBLEMS BEGIN :) 
+// THAT'S WHERE THE PROBLEMS BEGIN :)
 // -----------------------------
 
 const studentList = document.querySelector('.student-list');
@@ -149,17 +146,17 @@ const lis_students = studentList.children;
 
 search_input.addEventListener('keyup', () => {
   let input = search_input;
-  let inputValue = input.value;
-  let inputLength = inputValue.length;
+  let inputValue = input.value.toUpperCase();
+//  let inputLength = inputValue.length;
   let namesArray = []; // --------------------------------------
 
     for(let i = 0; i < lis_students.length; i += 1) {
       let li =  lis_students[i];
       let h3 = li.getElementsByTagName('h3')[0];
-      let name = h3.textContent;
-      let nameSubStr = name.substring(0, inputLength);
+      let name = h3.textContent.toUpperCase();
+//      let nameSubStr = name.substring(0, inputLength);
 
-      if(nameSubStr === inputValue) {
+      if(name.includes(inputValue)) {
         li.style.display = '';
         namesArray.push(li);  // ------------------------------
       }else{
@@ -167,19 +164,20 @@ search_input.addEventListener('keyup', () => {
       }
     }
 
+    // appendPageLinks(namesArray);
+    // document.querySelector('.pagination').style.display = 'none';
+
+
 // not sure about the following
 
     if(inputValue === '') {
       showPage(list_items, 1);
-      // document.querySelector('.pagination').remove();
-      // appendPageLinks(list_items);
     }
     // else{
     //   document.querySelector('.pagination').remove();
-    //   appendPageLinks(namesArray);
+    //   appendPageLinks(list_items);
+    //   showPage(list_items, 1);
     // }
-
-
 
 })
 
