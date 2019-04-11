@@ -191,12 +191,15 @@ search_input.addEventListener('keyup', () => {
 })
 
 
-
-// We add a 'click' event listener to the search button
-// SOMETHING WRONG HERE 
+// We add a 'click' event listener to the search button in case the user
+// pastes in a name in the search box and the 'keyup' event listener is not
+// triggered
+// it has pretty much the same functionality as the 'keyup'
 
 search_button.addEventListener('click', () => {
   let input = search_input;
+  let inputValue = input.value.toUpperCase();
+  let namesArray = [];
 
   if(input.value === '') {
     alert('Type a valid name');
@@ -205,13 +208,23 @@ search_button.addEventListener('click', () => {
     for(let i = 0; i < lis_students.length; i += 1) {
       let li =  lis_students[i];
       let h3 = li.getElementsByTagName('h3')[0];
-      let name = h3.textContent;
+      let name = h3.textContent.toUpperCase();
 
-      if(name === input.value) {
+      if(name.includes(inputValue)) {
         li.style.display = '';
+        namesArray.push(li);
       }else{
         li.style.display = 'none';
       }
     }
+    if(namesArray.length === 0) {
+      message.style.display = '';
+    }else{
+      message.style.display = 'none';
+    }
+
+    document.querySelector('.pagination').remove();
+    showPage(namesArray, 1);
+    appendPageLinks(namesArray);
   }
 })
