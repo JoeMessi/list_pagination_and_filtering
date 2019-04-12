@@ -10,7 +10,7 @@ FSJS project 2 - List Filter and Pagination
 const list_items = document.querySelector('.student-list').children;
 
 // 'items_per_page' holds the number of lis we want to show per page
-const items_per_page = 5;
+const items_per_page = 10;
 
 const divPage = document.querySelector('.page');
 
@@ -152,7 +152,6 @@ page_header.appendChild(search_div);
 
 
 
-
 // We add a 'keyup' event listener to the search bar and filter
 // the displaying students by comparing the user input with our
 // students names.
@@ -193,7 +192,7 @@ search_input.addEventListener('keyup', () => {
 
 // We add a 'click' event listener to the search button in case the user
 // pastes in a name in the search box and the 'keyup' event listener is not
-// triggered
+// triggered.
 // it has pretty much the same functionality as the 'keyup'
 
 search_button.addEventListener('click', () => {
