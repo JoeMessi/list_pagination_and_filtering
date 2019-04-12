@@ -55,7 +55,6 @@ const showPage = (list, page) => {
   }
 }
 
-
 /***
    In the 'appendPageLinks' function we create, append and give functionality
    to a pagination at the buttom of the page.
@@ -127,7 +126,6 @@ const appendPageLinks = (list) => {
   }
 }
 
-
 // We call the 'showPages' function passing the html collection and
 // the number 1 as arguments to display the first page with the first 10 students as
 // a starting point for our app.
@@ -149,7 +147,6 @@ search_button.textContent = 'Search';
 search_div.appendChild(search_input);
 search_div.appendChild(search_button);
 page_header.appendChild(search_div);
-
 
 
 // We add a 'keyup' event listener to the search bar and filter
