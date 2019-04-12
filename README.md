@@ -51,6 +51,8 @@ Questions:
 
    Despite me not getting it, it's working well, so I'm a bit confused.
 
+3) And I would like to know if I can make my code cleaner and shorter and anything else
+   you think I should know about.
 
 
 That's all, thanks a lot and happy reviewing :)
